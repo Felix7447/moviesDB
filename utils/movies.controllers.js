@@ -1,5 +1,4 @@
-// import { MovieModel } from '../models/local/movie.model.js'
-import { MovieModel } from '../models/mysql/movie.model.js'
+import { MovieModel } from '../models/local/movie.model.js'
 import { createMovieSchema, updateMovieSchema } from '../schemas/movie.schema.js'
 
 export class MovieController {
@@ -24,7 +23,6 @@ export class MovieController {
       }
 
       const newMovie = await MovieModel.createMovie({ data: result.data })
-
       res.status(201).json(newMovie)
     } catch (err) {
       console.error(err.message)
@@ -39,6 +37,7 @@ export class MovieController {
       if (!result.success) {
         res.status(400).json({ error: JSON.parse(result.error.message) })
       }
+
       const updatedMovie = await MovieModel.updateMovie({ id, data: result.data })
 
       res.json(updatedMovie)
