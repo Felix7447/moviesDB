@@ -1,15 +1,18 @@
 const { Sequelize } = require('sequelize')
 const setupModels = require('./models/index')
+const config = require('../config/config')
 
 const options = {
-  host: 'localhost',
-  port: '5432',
-  username: 'felix',
-  password: 'Felix123*',
-  database: 'movies_db',
+  host: config.host,
+  port: config.port,
+  username: config.username,
+  password: config.password,
+  database: config.database,
   dialect: 'postgres',
   logging: console.log
 }
+
+console.log(options)
 
 const sequelize = new Sequelize(options)
 

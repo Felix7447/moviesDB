@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node --watch index.js",
+    "start:local": "node init-local.js",
+    "start:mysql": "node init-mysql.js",
+    "start:sequelize": "node init-sequelize.js",
+    "dev": "node --watch init-local.js",
     "migrations:generate": "sequelize-cli migration:generate --name",
     "migrations:run": "sequelize-cli db:migrate",
     "migrations:undo": "sequelize-cli db:migrate:undo",
@@ -21,6 +23,7 @@
   "dependencies": {
     "@babel/register": "^7.22.15",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mysql2": "^3.6.2",
     "pg": "^8.11.3",

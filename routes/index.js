@@ -1,9 +1,11 @@
 const { Router } = require('express')
 
-const movies = require('./movies.route.js')
+const movieRouter = require('./movies.route.js')
 
-exports.routerAPI = app => {
+exports.routerAPI = ({ app, controller }) => {
+  const { movies } = controller
+
   const router = Router()
   app.use('/api/v1/', router)
-  router.use('/movies', movies)
+  router.use('/movies', movieRouter(movies))
 }

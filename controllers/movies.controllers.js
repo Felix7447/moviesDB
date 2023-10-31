@@ -1,20 +1,23 @@
-const MovieModel = require('../models/sequelize/movie.model')
 const { createMovieSchema, updateMovieSchema } = require('../schemas/movie.schema.js')
 
 class MovieController {
-  static async getAll (req, res) {
+  constructor (movieModel) {
+    this.MovieModel = movieModel
+  }
+
+  getAll = async (req, res) => {
     const { genre } = req.query
-    const movies = await MovieModel.getAll({ genre })
+    const movies = await this.MovieModel.getAll({ genre })
     res.json(movies)
   }
 
-  static async getById (req, res) {
+  getById = async (req, res) => {
     const { id } = req.params
-    const movie = await MovieModel.getById({ id })
+    const movie = await this.MovieModel.getById({ id })
     res.json(movie)
   }
 
-  static async createMovie (req, res) {
+  createMovie = async (req, res) => {
     try {
       const result = createMovieSchema(req.body)
 
@@ -22,7 +25,7 @@ class MovieController {
         res.status(400).json({ error: JSON.parse(result.error.message) })
       }
 
-      const newMovie = await MovieModel.createMovie({ data: result.data })
+      const newMovie = await this.MovieModel.createMovie({ data: result.data })
 
       res.status(201).json(newMovie)
     } catch (err) {
@@ -30,7 +33,7 @@ class MovieController {
     }
   }
 
-  static async updateMovie (req, res) {
+  updateMovie = async (req, res) => {
     try {
       const { id } = req.params
       const result = updateMovieSchema(req.body)
@@ -39,7 +42,7 @@ class MovieController {
         res.status(400).json({ error: JSON.parse(result.error.message) })
       }
 
-      const updatedMovie = await MovieModel.updateMovie({ id, data: result.data })
+      const updatedMovie = await this.MovieModel.updateMovie({ id, data: result.data })
 
       res.json(updatedMovie)
     } catch (error) {
@@ -47,9 +50,9 @@ class MovieController {
     }
   }
 
-  static async deleteMovie (req, res) {
+  deleteMovie = async (req, res) => {
     const { id } = req.params
-    const deletedMovie = await MovieModel.deleteMovie({ id })
+    const deletedMovie = await this.MovieModel.deleteMovie({ id })
     res.json(deletedMovie)
   }
 }
