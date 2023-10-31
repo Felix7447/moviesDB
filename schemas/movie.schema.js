@@ -1,4 +1,4 @@
-import z from 'zod'
+const z = require('zod')
 
 const movie = z.object({
   title: z.string({
@@ -10,13 +10,14 @@ const movie = z.object({
   duration: z.number().int().min(1),
   poster: z.string().url(),
   genre: z.array(z.enum(['Action', 'Drama', 'Crime', 'Adventure', 'Sci-fi', 'Romance'])),
-  rate: z.number().int().min(0).max(10)
+  rate: z.number().min(0).max(10)
 })
 
-export const createMovieSchema = (input) => {
-  return movie.safeParse(input)
+const createMovieSchema = input => {
+  return movie.partial({ rate: true }).safeParse(input)
 }
-
-export const updateMovieSchema = (input) => {
+const updateMovieSchema = input => {
   return movie.partial().safeParse(input)
 }
+
+module.exports = { createMovieSchema, updateMovieSchema }

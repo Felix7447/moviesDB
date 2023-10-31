@@ -1,9 +1,8 @@
-import express from 'express'
-import corsOptions from './middlewares/cors.middleware.js'
-import { routerAPI } from './routes/index.js'
+const express = require('express')
+const corsOptions = require('./middlewares/cors.middleware.js')
+const { routerAPI } = require('./routes/index.js')
 
 const app = express()
-
 app.disable('x-powered-by')
 app.use(corsOptions())
 app.use(express.json())

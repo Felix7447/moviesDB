@@ -1,4 +1,4 @@
-import cors from 'cors'
+const cors = require('cors')
 
 const whitelist = ['http://127.0.0.1:5500']
 
@@ -13,5 +13,4 @@ const options = {
 }
 
 const corsOptions = () => cors(options)
-
-export default corsOptions
+module.exports = corsOptions

@@ -1,7 +1,8 @@
-import { Router } from 'express'
-import movies from './movies.route.js'
+const { Router } = require('express')
 
-export const routerAPI = (app) => {
+const movies = require('./movies.route.js')
+
+exports.routerAPI = app => {
   const router = Router()
   app.use('/api/v1/', router)
   router.use('/movies', movies)

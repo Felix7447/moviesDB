@@ -1,8 +1,7 @@
-// import { MovieModel } from '../models/local/movie.model.js'
-import { MovieModel } from '../models/mysql/movie.model.js'
-import { createMovieSchema, updateMovieSchema } from '../schemas/movie.schema.js'
+const MovieModel = require('../models/sequelize/movie.model')
+const { createMovieSchema, updateMovieSchema } = require('../schemas/movie.schema.js')
 
-export class MovieController {
+class MovieController {
   static async getAll (req, res) {
     const { genre } = req.query
     const movies = await MovieModel.getAll({ genre })
@@ -39,6 +38,7 @@ export class MovieController {
       if (!result.success) {
         res.status(400).json({ error: JSON.parse(result.error.message) })
       }
+
       const updatedMovie = await MovieModel.updateMovie({ id, data: result.data })
 
       res.json(updatedMovie)
@@ -53,3 +53,5 @@ export class MovieController {
     res.json(deletedMovie)
   }
 }
+
+module.exports = MovieController
